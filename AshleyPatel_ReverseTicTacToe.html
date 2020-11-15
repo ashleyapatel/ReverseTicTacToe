@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tic Tac Toe</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width"/>
+    </head>
+    <body style="width: 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center;">
+        <h1>Reverse Tic Tac Toe!</h1>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap; width: 306px; height: 306px;">
+            <div id="cell1" style="width: 100px; height: 100px; border: 1px solid black;" onclick="pickCell('cell1')"></div>
+            <div id="cell2" style="width: 100px; height: 100px; border: 1px solid black;" onclick="pickCell('cell2')"></div>
+            <div id="cell3" style="width: 100px; height: 100px; border: 1px solid black;" onclick="pickCell('cell3')"></div>
+            <div id="cell4" style="width: 100px; height: 100px; border: 1px solid black;" onclick="pickCell('cell4')"></div>
+            <div id="cell5" style="width: 100px; height: 100px; border: 1px solid black;" onclick="pickCell('cell5')"></div>
+            <div id="cell6" style="width: 100px; height: 100px; border: 1px solid black;" onclick="pickCell('cell6')"></div>
+            <div id="cell7" style="width: 100px; height: 100px; border: 1px solid black;" onclick="pickCell('cell7')"></div>
+            <div id="cell8" style="width: 100px; height: 100px; border: 1px solid black;" onclick="pickCell('cell8')"></div>
+            <div id="cell9" style="width: 100px; height: 100px; border: 1px solid black;" onclick="pickCell('cell9')"></div>
+        </div>
+        <h2 id="message">
+
+        </h2>
+    
+    <script type="text/javascript">
+        var user1 = prompt("What are player 1's intitals?");
+        var user2 = prompt("What are player 2's initals?"); 
+        var currentPlayer = user1;
+        document.getElementById('message').innerHTML = user1 + " Goes First.";
+
+        function pickCell(cell) {
+            document.getElementById(cell).innerHTML = currentPlayer;
+            if (currentPlayer == user1) currentPlayer = user2;
+            else currentPlayer = user1;
+                    document.getElementById('message').innerHTML = currentPlayer + "'s turn";
+
+
+            var matchValue = checkMatch();
+            if (matchValue == user1 || matchValue == user2) {
+                document.getElementById('message').innerHTML = matchValue + ' loses!';
+            }
+            else if (matchValue == 'Draw') document.getElementById('message').innerHTML = "Draw!!! You both Lose Morons";
+        }
+        var counter = 0;
+        function checkMatch() {
+            var solutions = [
+                ["cell1", "cell2", "cell3"],
+                ["cell4", "cell5", "cell6"],
+                ["cell7", "cell8", "cell9"],
+                ["cell1", "cell4", "cell7"],
+                ["cell2", "cell5", "cell8"],
+                ["cell3", "cell6", "cell9"],
+                ["cell1", "cell5", "cell9"],
+                ["cell3", "cell5", "cell7"]
+            ]
+            var loser = '';        
+
+            solutions.forEach(solution => {
+                var user1Count = 0;
+                var user2Count = 0;
+                counter++;
+                console.log("counter global: " + counter);
+
+
+                solution.forEach(cell => {
+                    var value = document.getElementById(cell).innerHTML;
+                    if (value == user1) user1Count++;
+                    if (value == user2) user2Count++;
+                });
+
+                if (user1Count == 3) {
+                    loser = user1;
+                    counter--;
+                }
+                else if (user2Count == 3) {
+                    loser = user2;
+                    counter--;
+                }
+                if (counter == 72){         
+                    loser = "Draw"
+                }
+            });         
+            return(loser);
+
+        }
+    </script>
+	      
+        <button type="submit" onClick="refreshPage()">Play Again</button>
+
+        <script>
+            function refreshPage(){
+                window.location.reload();
+            } 		 
+        </script>
+	</body>
+</html>
